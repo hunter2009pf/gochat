@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "gochat/proto";
+
+message AuthRequest {
+    string user_id = 1;
+}
+
+message AuthResponse {
+    string im_token = 1;
+}
+
+service AuthService {
+    rpc getIMToken(AuthRequest) returns (AuthResponse);
+}

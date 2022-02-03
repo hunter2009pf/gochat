@@ -1,1 +1,36 @@
+syntax = "proto3";
 
+package user;
+
+option go_package = "gochat/proto";
+
+message User {
+    string user_id = 1;
+    string im_token = 2;
+    string user_name = 3;
+    string user_avatar = 4;
+    string extra = 5;
+}
+
+message TextMsg {
+    string msg_id = 1;
+    string seq_id = 2;
+    string text = 3;
+    string timestamp = 4;
+    User sender = 5;
+    User receiver = 6;
+}
+
+message SendMsgRequest {
+    TextMsg text_msg = 1;
+    bool is_group_msg = 2;
+}
+
+message SendMsgResponse {
+    bool isOk = 1;
+}
+
+service Communication {
+    rpc ConnectServer(User) returns (stream TextMsg);
+    rpc SendMsg(SendMsgRequest) returns (SendMsgResponse); 
+}
